@@ -18,6 +18,7 @@ class CategoryModel(models.Model):
 class ProductModel(models.Model):
     title = models.CharField(max_length=100, help_text='Тут вы должны писать название вашего продукта')
     price = models.FloatField()
+    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, null=True)
     image = models.FileField(upload_to='product_images')
     descriptions = models.TextField()
     count = models.IntegerField(default=0)
@@ -33,5 +34,5 @@ class ProductModel(models.Model):
         verbose_name_plural = 'Products'
 
 
-# Создать таблицу(модель) для корзины -> product, total_price, total_count, created_at
+# Создать таблицу(модель) для корзины -> product(ForeingKey), total_price, total_count, created_at
 # class CartModel()

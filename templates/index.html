@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Hello World!</h3>
+{% for i in categories %}
+    <p>Название: {{ i }}</p>
+    <p>ID: {{ i.pk }}</p>
+{% endfor %}
+
+<h3>This is products</h3>
+{% for j in products %}
+    <p>Название товара: {{ j.title }}</p>
+    <p>Цена: {{ j.price }} So'm</p>
+    <p>Описания: {{ j.descriptions }}</p>
+    <p>Кол-Во: {{ j.count }}шт</p>
+    <p>Время создания: {{ j.created_at }}</p>
+    <a href="">Buy</a>
+    {% empty %}
+        <p>Product not found</p>
+{% endfor %}
+</body>
+</html>
+
+<!-- На след уроке уже нужно шаблон и медиа и статик обьяснить(самому себе)-->
