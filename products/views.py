@@ -29,7 +29,8 @@ def search(request):
     # search=='Iphone12'
     if request.method == 'POST':
         # <input name='search_product'> <button>
-        get_product = request.POST.get('search_product')  #Iphone12 Iphone13
+        get_product = request.POST.get('search_product')
+        #search_product=Iphone12 Iphone13
         try:
             exact_product = ProductModel.objects.get(title__icontains=get_product)
             return redirect(f'/products/{exact_product.id}')

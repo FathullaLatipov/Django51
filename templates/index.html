@@ -61,7 +61,7 @@
                     <a href="#"><i class="fa fa-heart-o"></i> </i>Our Story</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-commenting-o"></i> Say Hi</a>
+                    <a href="#"><i class="fa fa-commenting-o"></i> Signup</a>
                 </li>
                 <li id="cart" onclick="cartFunction()"><a href="#"><i class="fa fa-shopping-basket"></i> Your Basket</a>
                 </li>
@@ -121,8 +121,12 @@
                 </div>
 
             </div><!--end of carosouel holder div-->
-            <input type="text" placeholder="Search">
-            <button class="btn btn-primary" type="submit">Search</button>
+            <form action="search" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="search_product" placeholder="Search">
+                  <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+
             <!--ECOMMERCE ITEMS - POPULATE WITH JAVASCRIPT ONLY-->
             <div class="row">
                 {% for product in products %}
