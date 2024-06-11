@@ -34,5 +34,16 @@ class ProductModel(models.Model):
         verbose_name_plural = 'Products'
 
 
-# Создать таблицу(модель) для корзины -> product(ForeingKey), total_price, total_count, created_at
-# class CartModel()
+# Модель для корзины
+class CartModel(models.Model):
+    user_id = models.IntegerField()  # 3
+    user_product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)  # Product
+    user_product_quantity = models.IntegerField(default=0)  # 10
+    user_add_date = models.DateTimeField(auto_now_add=True)  # 20:20,12july2024
+
+    def __str__(self):
+        return str(self.user_id)
+
+    class Meta:
+        verbose_name = 'Cart'
+        verbose_name_plural = 'Carts'
