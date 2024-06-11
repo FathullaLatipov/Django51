@@ -17,7 +17,7 @@ def register_view(request):
             password = form.cleaned_data.get('password1')  # SashaDarkPrice2010
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('profile')
+            return redirect('login')
         else:
             form = UserRegisterForm()
             return render(request, 'signup.html', {'form': form})
@@ -30,12 +30,14 @@ def register_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
+        print(form)
         if form.is_valid():
             username = form.cleaned_data.get('username') #Sasha
-            password = form.cleaned_data.get('password1') #asfasd
+            password = form.cleaned_data.get('password') #asfasd
             user = authenticate(request, username=username, password=password)
-
+            print(user)
             if user is not None:
+                print(user)
                 login(request, user)
                 return redirect('profile')
         else:
