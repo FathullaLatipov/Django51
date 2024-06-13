@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-
+from products.handler import bot
 from django.contrib import messages
 
 from .forms import SearchForm
@@ -64,6 +64,7 @@ def add_product_to_cart(request, id):
             return redirect('/')
 
 
+#
 def user_cart(request):
     # Если в таблице Корзина есть пользователь с определенным id
     cart = CartModel.objects.filter(user_id=request.user.id)
@@ -71,10 +72,12 @@ def user_cart(request):
         main_text = 'Новый заказ ока!'
 
         for i in cart:
-            main_text += f'Товар: {i.user_product}\n' \
+            main_text += f'\n Товар: {i.user_product}\n' \
                          f'Кол-во: {i.user_product_quantity}\n' \
                          f'ID пользователя: {i.user_id}\n' \
                          f'Цена: {i.user_product.price}\n'
-            pass
+            bot.send_message(-1002161971742, main_text)
+            cart.delete()
+            return redirect('/')
     else:
         return render(request, template_name='cart.html', context={'cart': cart})
