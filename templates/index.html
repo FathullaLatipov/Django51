@@ -132,6 +132,13 @@
             </form>
 
             <!--ECOMMERCE ITEMS - POPULATE WITH JAVASCRIPT ONLY-->
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} style="width: 100%; background-color: #337ab7; color:#fff; padding:15px; margin:10px; text-align: center; border-radius:20px" class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <div class="row">
                 {% for product in products %}
                 <div class="col-md-4">
@@ -141,6 +148,11 @@
                             <h5 class="card-title">{{ product.title }}</h5>
                             <p class="card-text">{{ product.description }}</p>
                             <a href="/products/{{ product.id }}" class="btn btn-primary">See more</a>
+                            <form action="/add_to_cart/{{ product.id }}" method="post">
+                                {% csrf_token %}
+                                <input type="number" min="1" value="1" name="pr_count">
+                                <button class="btn btn-success"><i class="fa fa-shopping-basket"></i></button>
+                            </form>
                         </div>
                     </div>
                   </div>

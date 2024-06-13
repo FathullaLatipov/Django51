@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 
+from django.contrib import messages
+
 from .forms import SearchForm
-from .models import CategoryModel, ProductModel
+from .models import CategoryModel, ProductModel, CartModel
 
 
 # def home_page(request):
@@ -30,7 +32,7 @@ def search(request):
     if request.method == 'POST':
         # <input name='search_product'> <button>
         get_product = request.POST.get('search_product')
-        #search_product=Iphone12 Iphone13
+        # search_product=Iphone12 Iphone13
         try:
             exact_product = ProductModel.objects.get(title__icontains=get_product)
             return redirect(f'/products/{exact_product.id}')
@@ -44,3 +46,35 @@ def product_page(request, id):
     context = {'product': product}
     return render(request, template_name='single-product.html',
                   context=context)
+
+
+# Функция для добавлении в корзину 3
+def add_product_to_cart(request, id):
+    if request.method == 'POST':
+        checker = ProductModel.objects.get(id=id) #2
+        if checker.count >= int(request.POST.get('pr_count')):
+            CartModel.objects.create(user_id=request.user.id,
+                                     user_product=checker,
+                                     user_product_quantity=int(request.POST.get('pr_count')))
+            print('Success')
+            return redirect('/user_cart')
+        else:
+            print('Error')
+            messages.info(request, 'Вы превысили кол-во товара!')
+            return redirect('/')
+
+
+def user_cart(request):
+    # Если в таблице Корзина есть пользователь с определенным id
+    cart = CartModel.objects.filter(user_id=request.user.id)
+    if request.method == 'POST':
+        main_text = 'Новый заказ ока!'
+
+        for i in cart:
+            main_text += f'Товар: {i.user_product}\n' \
+                         f'Кол-во: {i.user_product_quantity}\n' \
+                         f'ID пользователя: {i.user_id}\n' \
+                         f'Цена: {i.user_product.price}\n'
+            pass
+    else:
+        return render(request, template_name='cart.html', context={'cart': cart})

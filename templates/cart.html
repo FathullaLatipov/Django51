@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<h3>This is user cart</h3>
+{% for i in cart %}
+    {{ i.user_product.title }}
+    кол-во:{{ i.user_product_quantity }}шт
+{% endfor %}
+</body>
+</html>

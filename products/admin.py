@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CategoryModel, ProductModel
+from .models import CategoryModel, ProductModel, CartModel
 
 
 # Создаем админ панель для категории
@@ -16,3 +16,5 @@ class ProductModelAdmin(admin.ModelAdmin):
     search_fields = ['id', 'title', 'price']
     list_display = ['id', 'title', 'price', 'count', 'updated_at', 'created_at']
     list_filter = ['created_at']
+
+admin.site.register(CartModel)

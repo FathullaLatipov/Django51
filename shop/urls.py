@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from products.views import HomePage, product_page, search
+from products.views import HomePage, product_page, search, add_product_to_cart, user_cart
 # ИМПОРТ!!
 from users.views import register_view, login_view, profile_view, logout_view
 
@@ -16,7 +16,9 @@ urlpatterns = [
     path('signup', register_view, name='signup'),
     path('login', login_view, name='login'),
     path('profile', profile_view, name='profile'),
-    path('logout', logout_view, name='logout')
+    path('logout', logout_view, name='logout'),
+    path('add_to_cart/<int:id>', add_product_to_cart),
+    path('user_cart', user_cart)
 ]
 
 
