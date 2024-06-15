@@ -20,6 +20,7 @@ class HomePage(ListView):
     model = ProductModel
     context_object_name = 'products'
     form_class = SearchForm
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,6 +50,7 @@ def product_page(request, id):
 
 
 # Функция для добавлении в корзину 3
+# Копировать эту функицю и изменить его на add_product_to_wishlist
 def add_product_to_cart(request, id):
     if request.method == 'POST':
         checker = ProductModel.objects.get(id=id) #2
@@ -64,7 +66,7 @@ def add_product_to_cart(request, id):
             return redirect('/')
 
 
-#
+# Копировать эту функцию сделать user_wishlist
 def user_cart(request):
     # Если в таблице Корзина есть пользователь с определенным id
     cart = CartModel.objects.filter(user_id=request.user.id)

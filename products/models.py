@@ -35,6 +35,7 @@ class ProductModel(models.Model):
 
 
 # Модель для корзины
+# Копировать этот модель и изменить модель на WishlistModel
 class CartModel(models.Model):
     user_id = models.IntegerField()  # 3
     user_product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)  # Product
